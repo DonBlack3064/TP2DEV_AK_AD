@@ -1,38 +1,35 @@
 package livres;
+
 import java.util.ArrayList;
 
-public class Serie
-{
+public class Serie {
 
     private String nom;
-    private ArrayList<String> ouvrages;
+    private ArrayList<String> Serie;
 
     public Serie(String nom) {
         this.nom = nom;
-        this.ouvrages = new ArrayList<>();
+        this.Serie = new ArrayList<>();
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void ajouterOuvrage(String ouvrage)
-    {
-        ouvrages.add(ouvrage);
+    public void ajouterOuvrage(Ouvrage ouvrage) {
+        Serie.add(String.valueOf(ouvrage));
     }
 
-    public void afficherOuvrage()
-    {
-        for (String o : ouvrages){
-            System.out.println(o);
-        }
+    public void retirerOuvrage(Ouvrage ouvrage) {
+        Serie.remove(String.valueOf(ouvrage));
     }
+
 
     @Override
     public String toString() {
         return "Serie{" +
                 "nom='" + nom + '\'' +
-                ", ouvrages=" + ouvrages +
+                ", ouvrages=" + Serie +
                 '}';
     }
 }
