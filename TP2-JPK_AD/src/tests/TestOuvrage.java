@@ -1,10 +1,12 @@
 package tests;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.List;
 
 import livres.Ouvrage;
 import livres.Auteur;
+import livres.Serie;
 
 /**
  * CoursPOO 1
@@ -18,6 +20,7 @@ public class TestOuvrage {
         TestOuvrage test = new TestOuvrage();
         test.testOuvrages();
         test.testTrouver();
+        test.testSerie();
     }
 
 
@@ -102,6 +105,33 @@ public class TestOuvrage {
         System.out.println("Livres de Jacques: " + resultat);
     }
 
+
+    public void testSerie(){
+
+        System.out.println("====================== Test Serie ============================");
+        //Creation de la serie
+        Serie serie1 = new Serie("Test");
+        Auteur Test = new Auteur("jeanphilippe", "koye","Canada");
+        Ouvrage Testouvrage1 = new Ouvrage("le livre 1 ", Test);
+
+        //Afficher la serie vide
+        System.out.println(serie1);
+
+        // ajouter un ouvrage
+        serie1.ajouterOuvrage(Testouvrage1);
+        System.out.println(serie1);
+
+        // Retirer un ouvrage de la liste
+        serie1.retirerOuvrage(Testouvrage1);
+        System.out.println(serie1);
+
+
+
+
+
+
+
+    }
 
 }
 
