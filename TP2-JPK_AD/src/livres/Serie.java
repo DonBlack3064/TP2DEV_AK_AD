@@ -28,5 +28,11 @@ public class Serie
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Serie{" +
+                "nom='" + nom + '\'' +
+                ", ouvrages=" + ouvrages +
+                '}';
+    }
 }
