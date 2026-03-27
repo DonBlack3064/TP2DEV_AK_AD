@@ -5,7 +5,7 @@ public class Pays {
     private String nom_pays;
     private String code_pays;
 
-    public Pays(String nom_pays, String code_pays) {
+    public Pays() {
         setNom_pays(nom_pays);
         setCode_pays(code_pays);
     }
