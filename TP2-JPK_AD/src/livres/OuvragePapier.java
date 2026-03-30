@@ -5,7 +5,7 @@ public class OuvragePapier extends Ouvrage {
     private int nombrePages;
 
     public OuvragePapier(String titre, Auteur auteur, int nombrePages) {
-        super(titre, auteur, Format.PAPIER);
+        super(titre, auteur);
         this.nombrePages = nombrePages;
     }
 
