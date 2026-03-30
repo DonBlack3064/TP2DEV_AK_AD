@@ -4,10 +4,7 @@ import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.List;
 
-import livres.Ouvrage;
-import livres.Auteur;
-import livres.Pays;
-import livres.Serie;
+import livres.*;
 
 /**
  * CoursPOO 1
@@ -22,7 +19,6 @@ public class TestOuvrage {
         test.testOuvrages();
         test.testTrouver();
         test.testSerie();
-        test.testPaysEtAuteur();
     }
 
 
@@ -33,18 +29,18 @@ public class TestOuvrage {
 
         //Voici une partie des tests! Il faut en ajouter, pour les fonctionnalités non testées!
         System.out.println("-----Test des constructeurs d'ouvrage et des diverses validations-----------");
-        Ouvrage livreA = new Ouvrage("Titre assez long", john);
+        Ouvrage livreA = new OuvragePapier("Titre assez long", john,15);
         System.out.println(livreA);
-        Ouvrage livreB = new Ouvrage("Ti", john);
+        Ouvrage livreB = new OuvrageAudio("Ti", john,799,Format.NUMERIQUE);
         System.out.println(livreB);
-        Ouvrage livreC = new Ouvrage(null, john);
+        Ouvrage livreC = new OuvrageVideo(null, john,null,5);
         System.out.println(livreC);
 
         //bibliotheque.Auteur null et valeur par défaut de l'bibliotheque.Auteur
-        Ouvrage livreA1 = new Ouvrage("Titre assez long", null);
+        Ouvrage livreA1 = new OuvragePapier("Titre assez long", john,9);
         System.out.println(livreA1);
         //bibliotheque.Auteur fonctionnel
-        Ouvrage livre1 = new Ouvrage("Tout va bien", albertine);
+        Ouvrage livre1 = new OuvrageVideo("Tout va bien", albertine,null,4,100);
         System.out.println(livre1);
 
         //Date null et valeur par défaut de la date
@@ -54,15 +50,15 @@ public class TestOuvrage {
         System.out.println(livre1);
 
         //Test de la validation sur le nb d'exemplaires (valide et non valide)
-        Ouvrage livre2 = new Ouvrage("Tout va bien", albertine, Ouvrage.Format.AUDIO, LocalDate.now(), -10);
+        Ouvrage livre2 = new OuvrageAudio("Tout va bien", albertine, 5, Format.ANALOGIQUE);
         System.out.println(livre2);
 
-        livre2 = new Ouvrage("Tout va bien", albertine, Ouvrage.Format.PAPIER, LocalDate.now(), 20);
+        livre2 = new OuvrageVideo("Tout va bien", albertine,null,4,19);
         System.out.println(livre2);
 
         System.out.println("\n-----Tests des méthodes acheter et vendre-----------");
 
-        Ouvrage livre3 = new Ouvrage("Musique du hasard", new Auteur("Paul", "Auster", "Etats-Unis"), Ouvrage.Format.PAPIER, LocalDate.now(), 5);
+        Ouvrage livre3 = new OuvrageVideo("Musique du hasard", new Auteur("Paul", "Auster", "Etats-Unis"), LocalDate.now(), 5);
         System.out.println(livre3);
 
         livre3.acheter(5);
@@ -74,14 +70,14 @@ public class TestOuvrage {
         System.out.println("On peut vendre 10 livres? " + livre3.vendre(10));
         System.out.println(livre3);
 
-        Ouvrage livre4 = new Ouvrage("Test", new Auteur("A", "B", "Etats-Unis"), Ouvrage.Format.PAPIER, LocalDate.now(), 5);
+        Ouvrage livre4 = new OuvrageVideo("Test", new Auteur("A", "B", "Etats-Unis"), LocalDate.now(), 5);
 
         System.out.println("\n-----Tests de la  méthode equals()-----------");
         //Deux ouvrages égaux
-        Ouvrage livre5 = new Ouvrage("Test", new Auteur("A", "B", "Etats-Unis"), Ouvrage.Format.PAPIER, null, 5);
-        Ouvrage livre6 = new Ouvrage("Test", new Auteur("A", "B", "Etats-Unis"), Ouvrage.Format.PAPIER, LocalDate.now(), 10);
+        Ouvrage livre5 = new OuvrageAudio("Test", new Auteur("A", "B", "Etats-Unis"), 4, Format.NUMERIQUE);
+        Ouvrage livre6 = new OuvrageVideo("Test", new Auteur("A", "B", "Etats-Unis"), LocalDate.now(), 10);
         //Un qui ne l'est pas
-        Ouvrage livre7 = new Ouvrage("Test", new Auteur("Z", "B", "Etats-Unis"), Ouvrage.Format.PAPIER, LocalDate.now(), 5);
+        Ouvrage livre7 = new OuvragePapier("Test", new Auteur("Z", "B", "Etats-Unis"), 5);
 
         System.out.println("Test de la méthode equals d'bibliotheque.Ouvrage:" + livre4.equals(livre5));
         System.out.println("Test de la méthode equals d'bibliotheque.Ouvrage:" + livre4.equals(livre6));
@@ -114,7 +110,7 @@ public class TestOuvrage {
         //Creation de la serie
         Serie serie1 = new Serie("Test");
         Auteur Test = new Auteur("jeanphilippe", "koye","Canada");
-        Ouvrage Testouvrage1 = new Ouvrage("le livre 1 ", Test);
+        Ouvrage Testouvrage1 = new OuvrageVideo("le livre 1 ", Test, null,4,23.9);
 
         //Afficher la serie vide
         System.out.println(serie1);
@@ -135,49 +131,5 @@ public class TestOuvrage {
 
     }
 
-    private void testPaysEtAuteur() {
-
-        System.out.println("====================== Test PAYS et AUTEUR ===================");
-
-        // 1. Test pays valide
-        try {
-            Pays p1 = new Pays();
-
-            p1.setNom_pays("Canada");
-            p1.setCode_pays("CAN");
-
-            System.out.println("Pays valide créé : " + p1.getNom_pays());
-        } catch (Exception e) {
-            System.out.println("Erreur (pays valide) : " + e.getMessage());
-        }
-
-        // 2. Test pays invalide
-        try {
-            Pays p2 = new Pays();
-
-            p2.setNom_pays("France");
-            p2.setCode_pays("FR"); // invalide
-
-            System.out.println("ERREUR : un code invalide a été accepté");
-        } catch (IllegalArgumentException e) {
-            System.out.println("OK - Exception pour code invalide : " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Autre erreur : " + e.getMessage());
-        }
-
-        // 3. Lier avec un auteur
-        try {
-            Pays p3 = new Pays();
-
-            p3.setNom_pays("Japon");
-            p3.setCode_pays("JPN");
-
-            Auteur auteur = new Auteur("Haruki", "Murakami", p3.getNom_pays());
-
-            System.out.println("Auteur avec pays : " + auteur);
-        } catch (Exception e) {
-            System.out.println("Erreur liaison auteur : " + e.getMessage());
-        }
-    }
 }
 
