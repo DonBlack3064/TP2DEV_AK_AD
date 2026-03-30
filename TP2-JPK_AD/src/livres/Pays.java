@@ -5,6 +5,11 @@ public class Pays {
     private String nom_pays;
     private String code_pays;
 
+    public Pays(String nom_pays, String code_pays) {
+        this.nom_pays = nom_pays;
+        this.code_pays = code_pays;
+    }
+
     public Pays() {
 
     }
