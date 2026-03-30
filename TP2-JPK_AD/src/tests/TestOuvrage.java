@@ -6,6 +6,7 @@ import java.util.List;
 
 import livres.Ouvrage;
 import livres.Auteur;
+import livres.Pays;
 import livres.Serie;
 
 /**
@@ -21,6 +22,7 @@ public class TestOuvrage {
         test.testOuvrages();
         test.testTrouver();
         test.testSerie();
+        test.testPaysEtAuteur();
     }
 
 
@@ -133,5 +135,49 @@ public class TestOuvrage {
 
     }
 
+    private void testPaysEtAuteur() {
+
+        System.out.println("====================== Test PAYS et AUTEUR ===================");
+
+        // 1. Test pays valide
+        try {
+            Pays p1 = new Pays();
+
+            p1.setNom_pays("Canada");
+            p1.setCode_pays("CAN");
+
+            System.out.println("Pays valide créé : " + p1.getNom_pays());
+        } catch (Exception e) {
+            System.out.println("Erreur (pays valide) : " + e.getMessage());
+        }
+
+        // 2. Test pays invalide
+        try {
+            Pays p2 = new Pays();
+
+            p2.setNom_pays("France");
+            p2.setCode_pays("FR"); // invalide
+
+            System.out.println("ERREUR : un code invalide a été accepté");
+        } catch (IllegalArgumentException e) {
+            System.out.println("OK - Exception pour code invalide : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Autre erreur : " + e.getMessage());
+        }
+
+        // 3. Lier avec un auteur
+        try {
+            Pays p3 = new Pays();
+
+            p3.setNom_pays("Japon");
+            p3.setCode_pays("JPN");
+
+            Auteur auteur = new Auteur("Haruki", "Murakami", p3.getNom_pays());
+
+            System.out.println("Auteur avec pays : " + auteur);
+        } catch (Exception e) {
+            System.out.println("Erreur liaison auteur : " + e.getMessage());
+        }
+    }
 }
 
